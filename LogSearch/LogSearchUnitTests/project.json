@@ -1,0 +1,9 @@
+﻿{
+  "dependencies": {
+    "LogSearch": "1.0.0"
+  },
+
+  "commands": {
+    "test": "xunit.runner.dnx"
+  }
+}
