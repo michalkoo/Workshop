@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Hosting;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,9 +9,26 @@ namespace LogSearch.ConfigHelper
 {
     public class AppSettings : IConfiguration
     {
+        private Configuration _config;
+
+        public AppSettings(IConfigurationRoot globalConfig)
+        {
+            _config = new Configuration();
+        }
+
         public Configuration GetConfiguration()
         {
-            throw new NotImplementedException();
+            return _getConfiguration();
+        }
+
+        private Configuration _getConfiguration()
+        {
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json");
+
+            IConfigurationRoot c = builder.Build();
+
+            return c.Get<Configuration>("Configuration");
         }
     }
 }
