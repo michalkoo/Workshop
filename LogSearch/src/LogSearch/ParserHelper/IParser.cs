@@ -8,6 +8,6 @@ namespace LogSearch.ParserHelper
 {
     public interface IParser
     {
-        IList<LogEntry> GetResult();
+        IList<LogEntry> GetResult(SearchParameters parameters);
     }
 }
