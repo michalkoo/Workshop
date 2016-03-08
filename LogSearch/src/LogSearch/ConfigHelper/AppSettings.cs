@@ -11,7 +11,7 @@ namespace LogSearch.ConfigHelper
     {
         private Configuration _config;
 
-        public AppSettings(IConfigurationRoot globalConfig)
+        public AppSettings()
         {
             _config = new Configuration();
         }

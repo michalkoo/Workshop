@@ -9,13 +9,13 @@ namespace LogSearch.ParserHelper
 {
     public class Parser : IParser
     {
-        public Parser(IConfiguration configuration, SearchParameters parameters)
+        public Parser()
         {
         }
 
         private List<LogEntry> _parsedContent;
 
-        public IList<LogEntry> GetResult()
+        public IList<LogEntry> GetResult(SearchParameters parameters)
         {
             var logEntry = new LogEntry
             {

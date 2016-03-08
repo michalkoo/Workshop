@@ -1,4 +1,8 @@
-﻿using LogSearch.Services;
+﻿using LogSearch.ConfigHelper;
+using LogSearch.Models;
+using LogSearch.ParserHelper;
+using LogSearch.Services;
+using LogSearch.ViewModels.LogSearch;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,18 +15,22 @@ namespace LogSearch.Controllers
 
     public class LogSearchController : Controller
     {
-        private ILogSearchService _logSearchService;
+        private IParser _parser;
+        private Configuration _configuration;
         private readonly ILogger _logger;
 
-        public LogSearchController(ILogSearchService logSearchService, ILoggerFactory loggerFactory)
+        public LogSearchController(IParser parser, IConfiguration configuration, ILoggerFactory loggerFactory)
         {
-            _logSearchService = logSearchService;
+            _parser = parser;
+            _configuration = configuration.GetConfiguration();
             _logger = loggerFactory.CreateLogger<ManageController>();
         }
 
         public IActionResult Index()
         {
-            return View();
+            var viewModel = new LogSearchViewModel(_configuration, _parser.GetResult(new SearchParameters()));
+            
+            return View(viewModel);
         }
     }
 }

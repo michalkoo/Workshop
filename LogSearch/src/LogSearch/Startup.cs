@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using LogSearch.Models;
 using LogSearch.Services;
 using LogSearch.ConfigHelper;
+using LogSearch.ParserHelper;
 
 namespace LogSearch
 {
@@ -62,9 +63,10 @@ namespace LogSearch
             services.AddTransient<ISmsSender, AuthMessageSender>();
             
             //Add configuration settings
-            services.AddSingleton<LogSearch.ConfigHelper.IConfiguration, AppSettings>();
-            
-            services.AddScoped<ILogSearchService, LogSearchService>();
+            services.AddSingleton<ConfigHelper.IConfiguration, AppSettings>();
+
+            services.AddSingleton<IParser, Parser>();
+            //services.AddSingleton<ILogSearchService, LogSearchService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
