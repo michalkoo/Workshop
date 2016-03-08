@@ -17,7 +17,14 @@ namespace LogSearch.ParserHelper
 
         public IList<LogEntry> GetResult()
         {
-            throw new NotImplementedException();
+            var logEntry = new LogEntry
+            {
+                Message = "Parsed content."
+            };
+
+            _parsedContent = new List<LogEntry>();
+            _parsedContent.Add(logEntry);
+            return _parsedContent;
         }
     }
 }
