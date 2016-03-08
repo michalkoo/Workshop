@@ -5,5 +5,9 @@
 
   "commands": {
     "test": "xunit.runner.dnx"
+  },
+
+  "frameworks": {
+    "dnx452": { }
   }
 }
