@@ -47,7 +47,10 @@ namespace LogSearch.ParserHelper
                     }
                 }
             }
-            return null;
+
+            var a = new List<LogEntry>();
+            a.Add(new LogEntry() { Message = "message" });
+            return a;
         }
     }
 }
