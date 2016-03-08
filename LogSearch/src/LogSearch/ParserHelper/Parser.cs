@@ -16,38 +16,47 @@ namespace LogSearch.ParserHelper
         public Parser(IConfiguration configuration)
         {
             _configuration = configuration;
+            _parsedContent = new List<LogEntry>();
         }
 
-        private string _remoteDirPath = @"C:\temp\logs";
-        private string _localDirPath = @"C:\temp\local\logs";
-        private string _errorCode = "7812B31Cztmr";
+        private string _remoteDirPath;
+        private string _localDirPath = @"C:\temp\logs";
 
         public IList<LogEntry> GetResult(SearchParameters parameters)
         {
-            if (Directory.Exists(_remoteDirPath))
-            {
-                foreach (var filePath in Directory.EnumerateFiles(_remoteDirPath))
-                {
-                    FileInfo fi = new FileInfo(filePath);
-                    var logFile = _localDirPath + @"\" + fi.Name;
-                    fi.CopyTo(logFile);
+            int counter = 0;
 
-                    TextReader logReader = new StreamReader(new FileStream(logFile, FileMode.Open));
-                    string line;
-                    bool found = false;
-                    IList<string> resultLines = new List<string>();
-                    while ((line = logReader.ReadLine()) != null && !found)
+            foreach (var item in _configuration.GetConfiguration().ServerPath)
+            {
+                _remoteDirPath = string.Concat(@"\\", item.Key, @"\", item.Value.Replace(":", "$"));
+
+                if (Directory.Exists(_remoteDirPath))
+                {
+                    foreach (var filePath in Directory.EnumerateFiles(_remoteDirPath))
                     {
-                        found = line.Contains(_errorCode);
-                        /*if (found)
+                        DirectoryInfo di = Directory.CreateDirectory(_localDirPath + @"\" + item.Key);
+                        FileInfo fi = new FileInfo(filePath);
+                        var logFile = di.FullName + @"\" + fi.Name;
+                        fi.CopyTo(logFile);
+
+                        TextReader logReader = new StreamReader(new FileStream(logFile, FileMode.Open));
+                        string line;
+                        //bool found = false;
+                        IList<string> resultLines = new List<string>();
+                        while ((line = logReader.ReadLine()) != null && counter < 10)
                         {
-                            isLineCopyMode = true;
-                            resultLines.Add(line);
-                        }*/
+                            if (line.Contains(parameters.SearchPhrase))
+                            {
+                                LogEntry le = new LogEntry() { Message = line };
+                                _parsedContent.Add(le);
+                                ++counter;
+                            }
+                        }
                     }
                 }
             }
-            return null;
+
+            return _parsedContent;
         }
     }
 }
