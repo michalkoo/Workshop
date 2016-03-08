@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using LogSearch.Models;
 using LogSearch.Services;
+using LogSearch.ConfigHelper;
 using LogSearch.ParserHelper;
 
 namespace LogSearch
@@ -60,8 +61,12 @@ namespace LogSearch
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            
+            //Add configuration settings
+            services.AddSingleton<ConfigHelper.IConfiguration, AppSettings>();
 
-            services.AddTransient<IParser, Parser>();
+            services.AddSingleton<IParser, Parser>();
+            //services.AddSingleton<ILogSearchService, LogSearchService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

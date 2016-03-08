@@ -1,0 +1,6 @@
+﻿@model LogSearch.ViewModels.LogSearch.LogSearchViewModel
+
+<div>
+    @Model.Configuration.ServerPath.First().Key;
+    @Model.LogEntries.First().Message;
+</div>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogSearch.Services
 {
-    interface ILogSearchService
+    public interface ILogSearchService
     {
         IList<LogEntry> GetResult(SearchParameters parameters);
     }
