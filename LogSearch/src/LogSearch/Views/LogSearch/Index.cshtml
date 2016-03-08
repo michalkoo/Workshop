@@ -1,6 +1,10 @@
 ﻿@model LogSearch.ViewModels.LogSearch.LogSearchViewModel
 
+@Model.LogEntries.First().Message;
+
 <div>
-    @Model.Configuration.ServerPath.First().Key;
-    @Model.LogEntries.First().Message;
+@foreach (var item in @Model.Configuration.ServerPath)
+{
+    <p>Server: @item.Key, path: @item.Value</p>
+}
 </div>
