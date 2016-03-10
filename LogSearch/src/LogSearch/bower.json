@@ -6,6 +6,9 @@
     "jquery": "2.1.4",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.4",
-    "angular-ui": "0.4.0"
+    "angular-ui": "0.4.0",
+    "angular-material": "~1.0.6",
+    "system.js": "~0.19.24",
+    "es6-module-loader": "~0.17.11"
   }
 }
